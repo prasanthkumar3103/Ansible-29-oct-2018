@@ -1,0 +1,18 @@
+---
+- hosts: appservers
+  become: true
+  tasks: # with in a single task installing multiple packages installation
+    - name: install apache 2
+      apt: name={{item}} state=present update_cache=yes
+      with_items: # this is like loop( install in a iterative manner)
+        - apache2
+        - libapache2-mod-wsgi
+        - python-pip
+        - python-virtualenv
+
+
+# to check machines are in desired state
+#ansible-playbook --check appservers.yml
+
+# to see what went wrong(debug)
+#ansible-playbook -vvv appservers.yml

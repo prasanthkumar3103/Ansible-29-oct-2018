@@ -1,0 +1,8 @@
+http://yaml.org/
+
+http://yaml.org/start.html
+
+http://www.yamllint.com/
+
+yaml is all about list & dictionary
+

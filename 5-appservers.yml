@@ -1,0 +1,13 @@
+---
+- hosts: appservers
+  become: true
+  tasks:
+    - name: install apache 2
+      apt: name=apache2 state=present update_cache=yes
+    - name: install apache 2
+      apt: name=libapache2-mod-wsgi state=present update_cache=yes
+    - name: install apache 2
+      apt: name=python-pip state=present update_cache=yes
+    - name: install apache 2
+      apt: name=apython-virtualenv state=present update_cache=yes
+    

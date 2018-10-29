@@ -1,0 +1,27 @@
+- name: Configure webserver nginx 
+  hosts:
+  become: True
+  tasks: # it has 5 tasks, it will execute sequentially
+   - name: Install nginx  
+     apt: name:nginx update_cache=yes
+
+   - name: copy nginx config file
+     copy: src=files/nginx.conf dest=/etc/nginx/sites-available/default
+
+   - name: enable configuration #(creating symbolic lynk)
+     file: >
+       dest=/etc/nginx/sites-available/default
+       src=/etc/nginx/sites-available/default
+       state=link
+   - name: copy index.html
+     template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html
+     notify: restart nginx
+
+  handlers: # for restart 
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+#execute a playbook
+# ansible-playbook webservers.yml      
+
+      

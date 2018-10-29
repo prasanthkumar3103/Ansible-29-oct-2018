@@ -1,0 +1,49 @@
+ansible --list-host all
+ansible --list-host "*"
+ansible --list-host webservers
+ansible --list-host "vagrant*"
+ansible --list-host webservers:appservers
+ansible --list-host webservers[0]
+ansible --list-host webservers[1]
+
+not negation:-
+----------------
+ansible --list-host \!webservers
+
+
+checking log/dis space/free memory
+restrating services for a group of servers
+
+ansible all -m set up
+ansible webservers -m ping
+ansible webservers -a "hostname"
+ansible webservers -a "df -h"
+ansible webservers -a "free -m"
+ansible webservers -a "uptime"
+ansible webservers -a "date"
+
+
+file transfer to all servers
+ansible all -m copy -a "src=b" dest=/tmp/b"
+
+permission
+ansible all -m copy -a "src=b" dest=/tmp/b mode=600"
+
+directory create
+ansible all -m file -a "dest=/tmp/abc mode=755 state=directory"
+remove directory
+ansible all -m file -a "dest=/tmp/abc state=absent"
+
+install package
+ansible webservers -m apt -a "name=nginx state=present"
+
+install latest package if package is old
+ansible webservers -m apt -a "name=nginx state=latest"
+
+remove
+ansible webservers -m apt -a "name=nginx state=absent"
+
+
+ansible webservers -m service -a "name=nginx state=started"
+ansible webservers -m service -a "name=nginx state=restarted"
+ansible webservers -m service -a "name=nginx state=stopped"
